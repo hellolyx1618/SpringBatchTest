@@ -12,21 +12,21 @@ import org.springframework.stereotype.Component;
 @Component
 public class AddDescPeopleWriter implements ItemWriter<PeopleDESC> {
 
-	private JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
-	@Autowired
-	public void setDataSource(DataSource dataSource) {
-		this.jdbcTemplate = new JdbcTemplate(dataSource);
-	}
+    @Autowired
+    public void setDataSource(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
 
-	public void write(List<? extends PeopleDESC> items) throws Exception {
-		for (PeopleDESC peopleDESC : items) {
-			System.out.println("write people desc!!");
-			this.jdbcTemplate
-					.update("insert into ok_people (first_name, last_name, batch_desc) values (?, ?, ?)",
-							peopleDESC.getFirstName(),
-							peopleDESC.getLastName(), peopleDESC.getDesc());
-		}
-	}
+    public void write(List<? extends PeopleDESC> items) throws Exception {
+        for (PeopleDESC peopleDESC : items) {
+            System.out.println("write people desc!!");
+            this.jdbcTemplate
+                    .update("insert into ok_people (first_name, last_name, batch_desc) values (?, ?, ?)",
+                            peopleDESC.getFirstName(),
+                            peopleDESC.getLastName(), peopleDESC.getDesc());
+        }
+    }
 
 }

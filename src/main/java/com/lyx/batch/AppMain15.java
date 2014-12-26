@@ -13,28 +13,28 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class AppMain15 {
-	public static void main(String[] args)
-			throws JobExecutionAlreadyRunningException, JobRestartException,
-			JobInstanceAlreadyCompleteException, JobParametersInvalidException {
+    public static void main(String[] args)
+            throws JobExecutionAlreadyRunningException, JobRestartException,
+            JobInstanceAlreadyCompleteException, JobParametersInvalidException {
 
-		long startTime = System.currentTimeMillis(); // 获取开始时间
+        long startTime = System.currentTimeMillis(); // 获取开始时间
 
-		@SuppressWarnings("resource")
-		ApplicationContext context = new ClassPathXmlApplicationContext(
-				new String[] { "classpath:spring-batch-sample-tasklet.xml" });
-		JobParametersBuilder jobParametersBuilder = new JobParametersBuilder();
-		Job job = (Job) context.getBean("taskletJob");
-		JobLauncher launcher = (JobLauncher) context.getBean("jobLauncher");
-		JobExecution result = launcher.run(job,
-				jobParametersBuilder.toJobParameters());
-		ExitStatus es = result.getExitStatus();
-		if (es.getExitCode().equals(ExitStatus.COMPLETED.getExitCode())) {
-			System.out.println("任务正常完成");
-		} else {
-			System.out.println("任务失败，exitCode=" + es.getExitCode());
-		}
+        @SuppressWarnings("resource")
+        ApplicationContext context = new ClassPathXmlApplicationContext(
+                new String[]{"classpath:spring-batch-sample-tasklet.xml"});
+        JobParametersBuilder jobParametersBuilder = new JobParametersBuilder();
+        Job job = (Job) context.getBean("taskletJob");
+        JobLauncher launcher = (JobLauncher) context.getBean("jobLauncher");
+        JobExecution result = launcher.run(job,
+                jobParametersBuilder.toJobParameters());
+        ExitStatus es = result.getExitStatus();
+        if (es.getExitCode().equals(ExitStatus.COMPLETED.getExitCode())) {
+            System.out.println("任务正常完成");
+        } else {
+            System.out.println("任务失败，exitCode=" + es.getExitCode());
+        }
 
-		long endTime = System.currentTimeMillis(); // 获取结束时间
-		System.out.println("程序运行时间： " + (endTime - startTime) + "ms");
-	}
+        long endTime = System.currentTimeMillis(); // 获取结束时间
+        System.out.println("程序运行时间： " + (endTime - startTime) + "ms");
+    }
 }
